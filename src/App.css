@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  font-family: "Kanit", sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  align-items: center;
+  background-color: #293264;
+  display: flex;
+  justify-content: center;
+}
+
+.App {
+  align-items: center;
+  background-color: #f5f5f5;
+  display: flex;
+  height: 550px;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 75vw;
+}
+
+/* move and/or rename later? */
+button {
+  background: #4d5b9e;
+  border-radius: 15px;
+  color: #f5f7fb;
+  cursor: pointer;
+  font-size: 16px;
+  height: 52px;
+  padding: 15px 0px;
+  width: 193px;
+}
