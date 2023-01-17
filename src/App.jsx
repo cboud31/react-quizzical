@@ -1,14 +1,30 @@
-import reactLogo from "./assets/react.svg";
+import { useState } from "react";
 import "./App.css";
 
+import Quiz from "./components/Quiz";
+import Title from "./components/Title";
+
 /*
-1. Build a responsive container for the app.
+API Link: "https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple"
+showGame ? <Quiz /> : <Title />
 */
 
 function App() {
+  const [startGame, setStartGame] = useState(false);
+
+  const toggle = () => {
+    setStartGame((prevState) => !prevState);
+  };
+
+  fetch(
+    "https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple"
+  )
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+
   return (
     <div className="App">
-      <button>Start Quiz</button>
+      {startGame ? <Quiz /> : <Title toggle={toggle} />}
     </div>
   );
 }
