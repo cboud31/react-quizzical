@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 import Quiz from "./components/Quiz";
@@ -10,21 +10,28 @@ showGame ? <Quiz /> : <Title />
 */
 
 function App() {
+  const [triviaQuestions, setTriviaQuestions] = useState([]);
   const [startGame, setStartGame] = useState(false);
 
   const toggle = () => {
     setStartGame((prevState) => !prevState);
   };
 
-  fetch(
-    "https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple"
-  )
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+  useEffect(() => {
+    fetch(
+      "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
+    )
+      .then((response) => response.json())
+      .then((data) => setTriviaQuestions(data.results));
+  }, []);
 
   return (
     <div className="App">
-      {startGame ? <Quiz /> : <Title toggle={toggle} />}
+      {startGame ? (
+        <Quiz triviaQuestions={triviaQuestions} />
+      ) : (
+        <Title toggle={toggle} />
+      )}
     </div>
   );
 }

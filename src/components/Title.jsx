@@ -2,7 +2,9 @@ function Title(props) {
   return (
     <>
       <h1>Quizzical</h1>
-      <button onClick={props.toggle}>Start Quiz</button>
+      <button className="button-start-quiz" onClick={props.toggle}>
+        Start Quiz
+      </button>
     </>
   );
 }
