@@ -12,9 +12,10 @@ showGame ? <Quiz /> : <Title />
 function App() {
   const [triviaQuestions, setTriviaQuestions] = useState([]);
   const [startGame, setStartGame] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
-  const toggle = () => {
-    setStartGame((prevState) => !prevState);
+  const toggle = (setState) => {
+    setState((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -22,15 +23,25 @@ function App() {
       "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
     )
       .then((response) => response.json())
-      .then((data) => setTriviaQuestions(data.results));
+      .then((data) =>
+        setTriviaQuestions(
+          data.results.map((result) => ({ ...result, isSelected }))
+        )
+      );
   }, []);
+
+  console.log(triviaQuestions);
 
   return (
     <div className="App">
       {startGame ? (
-        <Quiz triviaQuestions={triviaQuestions} />
+        <Quiz
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+          triviaQuestions={triviaQuestions}
+        />
       ) : (
-        <Title toggle={toggle} />
+        <Title toggle={() => toggle(setStartGame)} />
       )}
     </div>
   );
